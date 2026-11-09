@@ -1,0 +1,25 @@
+---
+layout: default
+---
+{% assign total = site.posts | size %}
+<section class="intro">
+  <p class="prompt" aria-hidden="true">$ whoami</p>
+  <h1>Today I learned</h1>
+  <p>{{ site.description | escape }}</p>
+</section>
+
+<section aria-labelledby="entries-heading">
+  <p class="prompt" aria-hidden="true">$ ls -t entries/</p>
+  <h2 id="entries-heading" class="count">{{ total }} {% if total == 1 %}entry{% else %}entries{% endif %}</h2>
+  <ol class="entries">
+    {% for post in site.posts %}
+    <li>
+      <a href="{{ post.url | relative_url }}">
+        <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%Y-%m-%d' }}</time>
+        <span class="entry-title">{{ post.title | escape }}</span>
+        {% if post.description %}<span class="entry-description">{{ post.description | escape }}</span>{% endif %}
+      </a>
+    </li>
+    {% endfor %}
+  </ol>
+</section>

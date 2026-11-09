@@ -1,0 +1,21 @@
+---
+layout: default
+---
+<article class="entry">
+  <p class="prompt" aria-hidden="true">$ cat {{ page.slug }}.md</p>
+  <header>
+    <h1>{{ page.title | escape }}</h1>
+    <p class="meta">
+      <time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: '%Y-%m-%d' }}</time>
+      {% for tag in page.tags %}<span class="tag">#{{ tag | escape }}</span>{% endfor %}
+    </p>
+  </header>
+  <div class="prose">
+{{ content }}
+  </div>
+  <nav class="pager" aria-label="More entries">
+    {% if page.previous %}<a href="{{ page.previous.url | relative_url }}">&larr; older</a>{% else %}<span></span>{% endif %}
+    <a href="{{ '/' | relative_url }}">all entries</a>
+    {% if page.next %}<a href="{{ page.next.url | relative_url }}">newer &rarr;</a>{% else %}<span></span>{% endif %}
+  </nav>
+</article>

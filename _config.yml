@@ -1,0 +1,12 @@
+title: today-i-learned
+description: A learning journal, one lesson at a time.
+url: https://bubblini-ux.github.io
+baseurl: /today-i-learned
+markdown: kramdown
+permalink: /:year/:month/:day/:title/
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post

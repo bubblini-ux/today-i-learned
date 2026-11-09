@@ -1,7 +1,8 @@
-# Check dotfiles for secrets before committing them
-
-**Date:** 2026-11-09
-**Topics:** git, security, dotfiles
+---
+title: Check dotfiles for secrets before committing them
+description: Why shell config needs a review before it goes anywhere public.
+tags: [git, security, dotfiles]
+---
 
 ## What happened
 
