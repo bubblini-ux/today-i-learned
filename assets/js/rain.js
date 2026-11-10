@@ -84,4 +84,16 @@
 
   setup();
   start();
+
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest ? e.target.closest('[data-copy]') : null;
+    if (!btn) return;
+    var text = btn.getAttribute('data-copy') || '';
+    if (!navigator.clipboard || !navigator.clipboard.writeText) return;
+    navigator.clipboard.writeText(text).then(function () {
+      var orig = btn.textContent;
+      btn.textContent = '[copied!]';
+      setTimeout(function () { btn.textContent = orig; }, 1600);
+    });
+  });
 })();

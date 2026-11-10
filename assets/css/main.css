@@ -149,6 +149,142 @@ h3 { margin: 1.5rem 0 0.5rem; font-size: 1rem; }
 
 .pager > :last-child { text-align: right; }
 
+.footer-links { display: inline-flex; gap: 0.5rem; align-items: center; }
+
+.section-block + .section-block {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px dashed var(--line);
+}
+
+.section-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.section-bar .count { margin: 0; }
+.json-link { font-size: 0.875rem; }
+
+.card-list { display: grid; gap: 0.75rem; }
+.card-list li + li { border-top: 0; }
+
+.entry-card a {
+  padding: 1rem;
+  background: var(--panel-solid);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  transition: border-color 0.15s ease;
+}
+
+.entry-card a:hover { border-color: var(--accent); }
+
+.card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.6rem;
+  color: var(--dim);
+  font-size: 0.8125rem;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 1rem;
+}
+
+.json-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1rem;
+  background: var(--panel-solid);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
+.json-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+}
+
+.card-badge {
+  padding: 0.1rem 0.45rem;
+  border: 1px solid var(--accent);
+  border-radius: 3px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.card-id { color: var(--dim); }
+
+.json-card-title { margin: 0; font-size: 1.05rem; }
+.json-card-desc { margin: 0; font-size: 0.9rem; color: var(--text); }
+
+.card-cmd {
+  margin: 0;
+  padding: 0.5rem 0.65rem;
+  overflow-x: auto;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  color: var(--accent);
+  font-size: 0.8rem;
+}
+
+.prompt-box {
+  margin-top: auto;
+  padding: 0.65rem;
+  background: var(--bg);
+  border: 1px dashed var(--line);
+  border-radius: 3px;
+}
+
+.prompt-box-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.35rem;
+  font-size: 0.75rem;
+}
+
+.copy-btn {
+  padding: 0.1rem 0.4rem;
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.copy-btn:hover, .copy-btn:focus-visible {
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.prompt-text {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--dim);
+  line-height: 1.5;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .cursor { animation: none; }
 }
