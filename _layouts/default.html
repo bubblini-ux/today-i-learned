@@ -6,6 +6,7 @@
   <meta name="color-scheme" content="dark">
   <title>{% if page.title %}{{ page.title | escape }} | {% endif %}{{ site.title | escape }}</title>
   <meta name="description" content="{{ page.description | default: site.description | escape }}">
+  <link rel="alternate" type="application/json" title="{{ site.title | escape }} JSON Cards" href="{{ '/cards.json' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
   <script defer src="{{ '/assets/js/rain.js' | relative_url }}"></script>
 </head>
@@ -20,7 +21,13 @@
     </main>
     <footer class="site-footer">
       <span class="dim">eof</span>
-      <a href="https://github.com/bubblini-ux/today-i-learned">source</a>
+      <span class="footer-links">
+        <a href="{{ '/cards.json' | relative_url }}">cards.json</a>
+        <span class="dim">|</span>
+        <a href="https://github.com/bubblini-ux/today-i-learned/blob/main/AGENTS.md">agents</a>
+        <span class="dim">|</span>
+        <a href="https://github.com/bubblini-ux/today-i-learned">source</a>
+      </span>
     </footer>
   </div>
 </body>

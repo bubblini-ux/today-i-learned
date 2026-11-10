@@ -2,24 +2,70 @@
 layout: default
 ---
 {% assign total = site.posts | size %}
+{% assign card_total = site.data.cards | size %}
 <section class="intro">
   <p class="prompt" aria-hidden="true">$ whoami</p>
   <h1>Today I learned</h1>
   <p>{{ site.description | escape }}</p>
 </section>
 
-<section aria-labelledby="entries-heading">
+<section aria-labelledby="entries-heading" class="section-block">
   <p class="prompt" aria-hidden="true">$ ls -t entries/</p>
-  <h2 id="entries-heading" class="count">{{ total }} {% if total == 1 %}entry{% else %}entries{% endif %}</h2>
-  <ol class="entries">
+  <div class="section-bar">
+    <h2 id="entries-heading" class="count">{{ total }} {% if total == 1 %}entry{% else %}entries{% endif %}</h2>
+    <a class="json-link" href="{{ '/cards.json' | relative_url }}">cards.json &rarr;</a>
+  </div>
+  <ol class="entries card-list">
     {% for post in site.posts %}
-    <li>
+    <li class="entry-card">
       <a href="{{ post.url | relative_url }}">
-        <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%Y-%m-%d' }}</time>
+        <div class="card-meta">
+          <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%Y-%m-%d' }}</time>
+          {% if post.tags %}
+          <span class="card-tags">
+            {% for tag in post.tags %}<span class="tag">#{{ tag | escape }}</span>{% endfor %}
+          </span>
+          {% endif %}
+        </div>
         <span class="entry-title">{{ post.title | escape }}</span>
         {% if post.description %}<span class="entry-description">{{ post.description | escape }}</span>{% endif %}
       </a>
     </li>
     {% endfor %}
   </ol>
+</section>
+
+<section aria-labelledby="agent-cards-heading" class="section-block">
+  <p class="prompt" aria-hidden="true">$ cat _data/cards.json | jq '.[]'</p>
+  <div class="section-bar">
+    <h2 id="agent-cards-heading" class="count">{{ card_total }} JSON agent prompt cards</h2>
+    <a class="json-link" href="https://github.com/bubblini-ux/today-i-learned/blob/main/AGENTS.md">AGENTS.md &rarr;</a>
+  </div>
+  <div class="card-grid">
+    {% for card in site.data.cards %}
+    <article class="json-card" id="card-{{ card.id | escape }}">
+      <header class="json-card-header">
+        <span class="card-badge">{{ card.category | escape }}</span>
+        <span class="card-id">id: {{ card.id | escape }}</span>
+      </header>
+      <h3 class="json-card-title">{{ card.title | escape }}</h3>
+      <p class="json-card-desc">{{ card.description | escape }}</p>
+      {% if card.command %}
+      <pre class="card-cmd"><code>$ {{ card.command | escape }}</code></pre>
+      {% endif %}
+      <div class="prompt-box">
+        <div class="prompt-box-bar">
+          <span class="dim">agent prompt</span>
+          <button type="button" class="copy-btn" data-copy="{{ card.prompt | escape }}">[copy prompt]</button>
+        </div>
+        <p class="prompt-text">{{ card.prompt | escape }}</p>
+      </div>
+      {% if card.tags %}
+      <footer class="card-tags">
+        {% for tag in card.tags %}<span class="tag">#{{ tag | escape }}</span>{% endfor %}
+      </footer>
+      {% endif %}
+    </article>
+    {% endfor %}
+  </div>
 </section>

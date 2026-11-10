@@ -1,0 +1,56 @@
+[
+  {
+    "id": "new-til-entry",
+    "category": "content",
+    "title": "Add a New TIL Markdown Entry via PR",
+    "description": "Generate a new dated Markdown lesson in _posts/, stage from the target directory, and open a Pull Request.",
+    "tags": ["markdown", "git", "pr", "til"],
+    "command": "cd ~/today-i-learned && git checkout -b til/new-entry && git add . && gh pr create --fill",
+    "prompt": "Create a new Jekyll TIL post in _posts/YYYY-MM-DD-<slug>.md with front matter (title, description, tags) and sections for 'What happened', 'What I learned', and a practical checklist or command snippet. Stage all changes from ~/today-i-learned with `git add .`, commit on a feature branch, and open a pull request against main."
+  },
+  {
+    "id": "tag-filter-search",
+    "category": "feature",
+    "title": "Interactive Tag Filter & Instant Search",
+    "description": "Add client-side filtering by #tag and live search powered by the /cards.json endpoint.",
+    "tags": ["javascript", "json", "search", "ui"],
+    "command": "curl -s https://bubblini-ux.github.io/today-i-learned/cards.json | jq .",
+    "prompt": "Add an interactive terminal-styled search bar and clickable #tag filter pills to index.html in ~/today-i-learned. Use cards.json or data attributes on entry cards so users can filter TIL entries and agent cards in real time without page reloads while preserving the Matrix aesthetic."
+  },
+  {
+    "id": "code-block-copy",
+    "category": "ui-ux",
+    "title": "One-Click Copy Buttons for Terminal Snippets",
+    "description": "Attach a Matrix-styled [copy] button to every <pre><code> block in TIL posts.",
+    "tags": ["javascript", "css", "ux", "clipboard"],
+    "command": "git checkout -b feat/code-copy && git add .",
+    "prompt": "Enhance _layouts/post.html and assets/css/main.css so every rendered code block (<pre><code>) in a TIL entry displays a keyboard-accessible [copy] button in the top-right corner that copies the command to the clipboard and shows [copied!] feedback."
+  },
+  {
+    "id": "gh-actions-branch-guard",
+    "category": "devops",
+    "title": "GitHub Actions CI & Branch Protection Guard",
+    "description": "Verify Jekyll builds, validate JSON cards, and scan for leaked secrets on every Pull Request before merging to main.",
+    "tags": ["github-actions", "security", "branch-protection", "ci"],
+    "command": "gh api repos/bubblini-ux/today-i-learned/branches/main/protection",
+    "prompt": "Extend .github/workflows/jekyll-gh-pages.yml to run a secret-scanning step and JSON schema check on _data/cards.json during pull_request builds so branch protection blocks broken builds or accidental token leaks before deployment."
+  },
+  {
+    "id": "cli-to-md-capture",
+    "category": "automation",
+    "title": "Shell Output to TIL Markdown Card Generator",
+    "description": "Pipe terminal output or directory trees (> file.md) directly into a formatted TIL post and JSON card.",
+    "tags": ["bash", "cli", "markdown", "automation"],
+    "command": "git status -s > _posts/$(date +%F)-workspace-snapshot.md && git add .",
+    "prompt": "Add a helper script scripts/new-til.sh in ~/today-i-learned that accepts a title, tags, and piped stdin (or a target directory summary), writes a formatted Jekyll post in _posts/, appends metadata to _data/cards.json, runs `git add .`, and opens a PR."
+  },
+  {
+    "id": "rss-and-json-feed",
+    "category": "syndication",
+    "title": "JSON Feed 1.1 & Atom/RSS Syndication",
+    "description": "Expose standard feed.json and feed.xml endpoints alongside cards.json for subscribers and AI agents.",
+    "tags": ["json-feed", "rss", "api", "jekyll"],
+    "command": "curl -s https://bubblini-ux.github.io/today-i-learned/cards.json",
+    "prompt": "Add a JSON Feed 1.1 template (feed.json) and Atom XML feed (feed.xml) to ~/today-i-learned, link them in _layouts/default.html <head> via <link rel=\"alternate\">, and add feed links to the site footer."
+  }
+]
