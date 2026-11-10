@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Check dotfiles for secrets before committing them | today-i-learned</title>
+  <meta name="description" content="Why shell config needs a review before it goes anywhere public.">
+  <link rel="stylesheet" href="/today-i-learned/assets/css/main.css">
+  <script defer src="/today-i-learned/assets/js/rain.js"></script>
+</head>
+<body>
+  <canvas id="rain" aria-hidden="true"></canvas>
+  <div class="shell">
+    <header class="site-header">
+      <a class="site-name" href="/today-i-learned/"><span class="dim">~/</span>today-i-learned<span class="cursor" aria-hidden="true"></span></a>
+    </header>
+    <main>
+<article class="entry">
+  <p class="prompt" aria-hidden="true">$ cat secrets-in-dotfiles.md</p>
+  <header>
+    <h1>Check dotfiles for secrets before committing them</h1>
+    <p class="meta">
+      <time datetime="2026-11-09">2026-11-09</time>
+      <span class="tag">#git</span><span class="tag">#security</span><span class="tag">#dotfiles</span>
+    </p>
+  </header>
+  <div class="prose">
+<h2 id="what-happened">What happened</h2>
+
+<p>While getting ready to add my config files to a public <code class="language-plaintext highlighter-rouge">dotfiles</code> repo, I found a GitHub personal access token exported in plain text in my <code class="language-plaintext highlighter-rouge">.bashrc</code>. Nothing had been committed yet, so a quick review caught it in time.</p>
+
+<h2 id="what-i-learned">What I learned</h2>
+
+<ul>
+  <li><strong>Shell config is an easy place to leak secrets.</strong> A quick <code class="language-plaintext highlighter-rouge">export TOKEN=...</code> stays in <code class="language-plaintext highlighter-rouge">.bashrc</code> long after you forget about it.</li>
+  <li><strong>Deleting a secret doesn’t undo a leak.</strong> Git keeps old commits, and public repos get scanned for credentials. Once a token is exposed, revoke it.</li>
+  <li><strong>Exposure isn’t only about pushing.</strong> Printing a file with <code class="language-plaintext highlighter-rouge">cat</code> can copy a secret into terminal scrollback, logs, and AI tool transcripts.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">.gitignore</code> only protects untracked files.</strong> It does nothing for a file that’s already committed.</li>
+  <li>
+    <p><strong>Secrets belong outside the repo.</strong> Keep them in a file like <code class="language-plaintext highlighter-rouge">~/.secrets</code> and load it from <code class="language-plaintext highlighter-rouge">.bashrc</code>:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span> <span class="nt">-f</span> ~/.secrets <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">.</span> ~/.secrets
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="checklist-before-pushing-dotfiles">Checklist before pushing dotfiles</h2>
+
+<ol>
+  <li>Read every file being added.</li>
+  <li>
+    <p>Search staged changes for tokens:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git diff <span class="nt">--cached</span> | <span class="nb">grep</span> <span class="nt">-nE</span> <span class="s1">'ghp_|github_pat_|api[_-]?key|secret|password'</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Never add credential files such as <code class="language-plaintext highlighter-rouge">~/.config/gh/hosts.yml</code>.</li>
+  <li>If a secret gets out, revoke it first and clean up afterward.</li>
+</ol>
+
+  </div>
+  <nav class="pager" aria-label="More entries">
+    <span></span>
+    <a href="/today-i-learned/">all entries</a>
+    <span></span>
+  </nav>
+</article>
+
+    </main>
+    <footer class="site-footer">
+      <span class="dim">eof</span>
+      <a href="https://github.com/bubblini-ux/today-i-learned">source</a>
+    </footer>
+  </div>
+</body>
+</html>
